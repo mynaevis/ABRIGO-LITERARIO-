@@ -1,0 +1,8 @@
+{
+  "name": "Abrigo Literário",
+  "description": "Abrigo Literário: Resenhas de livros e ebooks, busca refinada por gênero, rascunhos de autoria privada e recomendações dinâmicas de leitura.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
