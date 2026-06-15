@@ -1,0 +1,29 @@
+# Usar a imagem oficial do Node.js
+FROM node:24-slim
+
+# Definir ambiente como produção para otimizações
+ENV NODE_ENV=production
+ENV PORT=3000
+
+WORKDIR /app
+
+# Copiar arquivos de dependências primeiro para aproveitar o cache de camadas do Docker
+COPY package*.json ./
+
+# Instala todas as dependências (incluindo dev para o build com Vite e Esbuild)
+RUN npm ci --include=dev
+
+# Copiar o restante do código da aplicação (incluindo o arquivo books_db.json que atua como banco)
+COPY . .
+
+# Executar o build que gera a versão de produção do React e do servidor Express compilado
+RUN npm run build
+
+# Limpar dependências de desenvolvimento para deixar a imagem final mais leve
+RUN npm prune --production
+
+# Expor a porta que a aplicação escuta
+EXPOSE 3000
+
+# Comando para iniciar a aplicação
+CMD ["npm", "run", "start"]
